@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: amanuxsource/backend:v1
+          image: amanuxsource/devops-backend:v1
           ports:
             - containerPort: 8080
           env:
