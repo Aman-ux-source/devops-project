@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: amanuxsource/devops-frontend:v1
+          image: amanuxsource/devops-frontend:v2
           ports:
             - containerPort: 80
 
