@@ -1,5 +1,5 @@
 function checkStatus() {
-  fetch("/api/health")
+  fetch('http://backend-service:8080/api/health')
     .then(res => res.json())
     .then(data => {
       document.getElementById("result").innerHTML =
