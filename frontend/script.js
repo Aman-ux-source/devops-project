@@ -1,28 +1,24 @@
 const express = require("express");
-const fetch = require("node-fetch"); // if using Node 18+, you can skip this import
 const app = express();
 
-// Original health route (inside backend container)
-app.get("/api/health", (req, res) => {
+// Health check API (frontend will call this)
+app.get("/status", (req, res) => {
   res.json({
     status: "UP",
+    service: "backend",
     message: "Backend running successfully 🚀"
   });
 });
 
-// Proxy route for frontend browser
-app.get("/status", async (req, res) => {
-  try {
-    // Call internal backend route from the container
-    const response = await fetch("http://localhost:3000/api/health");
-    const data = await response.json();
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ status: "DOWN", message: "Backend not reachable" });
-  }
+// Optional internal API
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "UP",
+    message: "Internal health check OK"
+  });
 });
 
-// Listen on port 3000
-app.listen(3000, () => {
-  console.log("Backend running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Backend running on port ${PORT}`);
 });
